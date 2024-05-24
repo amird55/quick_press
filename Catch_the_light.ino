@@ -19,12 +19,17 @@ void setup() {
   }
 }
 
+int CurrBtn;
+int LastBtn;
 void loop() {
-  if(digitalRead(BTN_pin) == LOW){
+  CurrBtn=digitalRead(BTN_pin);
+
+  if((CurrBtn == LOW) && (LastBtn == HIGH)){
     ToggleLed(0);
-    ToggleLed(1);
-    while(digitalRead(BTN_pin) == LOW){delay(50);}
- }
+  }
+ 
+
+ LastBtn=CurrBtn;
 
 }
 void ToggleLed(int chnl){
