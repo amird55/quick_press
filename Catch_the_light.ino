@@ -8,6 +8,9 @@
 #define LedR 4
 #define LedG 5
 
+unsigned long current_time;
+unsigned long LastPressTime;
+
 int  LedsPin[NUMBER_OF_LEDS]={LedR,LedG};
 bool LedIsOn[NUMBER_OF_LEDS];
 void setup() {
@@ -17,6 +20,8 @@ void setup() {
     pinMode(LedsPin[k],OUTPUT);
     TurnLedOFF(k);
   }
+
+  LastPressTime=millis();
 }
 
 int CurrBtn;
@@ -24,7 +29,8 @@ int LastBtn;
 void loop() {
   CurrBtn=digitalRead(BTN_pin);
 
-  if((CurrBtn == LOW) && (LastBtn == HIGH)){
+  if((CurrBtn == LOW) && (LastBtn == HIGH)&&(millis() - LastPressTime > 50)){
+    LastPressTime=millis();
     ToggleLed(0);
   }
  
