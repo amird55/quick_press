@@ -22,6 +22,8 @@ void setup() {
   }
 
   LastPressTime=millis();
+
+  StartLedBlink();
 }
 
 int CurrBtn;
@@ -35,7 +37,9 @@ void loop() {
   }
  
 
- LastBtn=CurrBtn;
+  LastBtn=CurrBtn;
+
+  CheckIfLedIsDone();
 
 }
 void ToggleLed(int chnl){
@@ -52,6 +56,17 @@ void TurnLedOn(int chnl){
 void TurnLedOFF(int chnl){
   LedIsOn[chnl]=false;
   digitalWrite(LedsPin[chnl],LOW);
+}
+
+unsigned long LedStartTime;
+void StartLedBlink(){
+  LedStartTime = millis();
+  TurnLedOn(0);
+}
+void CheckIfLedIsDone(){
+  if(millis() - LedStartTime >= 1000){
+    TurnLedOFF(0);
+  }
 }
 
 
